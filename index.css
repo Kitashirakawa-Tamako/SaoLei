@@ -1,0 +1,12 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+td:hover{
+    background: #bbb;
+    border:1px solid #808080 !important;
+    border-right-color: #ccc !important;
+    border-bottom-color: #ccc !important;
+}
+
