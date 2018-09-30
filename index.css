@@ -9,7 +9,9 @@
     border-bottom-color: #ccc !important;
 }
 
-.lei{
+#mask{
+    z-index: 100;
+    position: absolute;
 }
 
 

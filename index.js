@@ -1,4 +1,5 @@
 //创建表格
+var mask = document.getElementById("mask")
 createTable(8,8)
 function createTable(X,Y) {
     var table = document.getElementById("table")
@@ -14,6 +15,11 @@ function createTable(X,Y) {
         }
     }
     table.appendChild(tableNode)
+    mask.style.width = tableNode.offsetWidth + "px"
+    mask.style.height = tableNode.offsetHeight + "px"
+    mask.style.left = tableNode.getBoundingClientRect().left + "px"
+    mask.style.top = tableNode.getBoundingClientRect().top + "px"
+    mask.style.display = "none"
 }
 createLei(8,8,10)
 var randomX
@@ -228,6 +234,67 @@ function createLei(X,Y,N) {
                 for (let i=0;i<lei.length;i++){
                     lei[i].style.cssText+="background:red"
                 }
+                mask.style.display = "block"
+                alert("游戏结束")
+            }
+            let success = true
+            let success0 = document.getElementsByClassName("0")
+            let success1 = document.getElementsByClassName("1")
+            let success2 = document.getElementsByClassName("2")
+            let success3 = document.getElementsByClassName("3")
+            let success4 = document.getElementsByClassName("4")
+            let success5 = document.getElementsByClassName("5")
+            let success6 = document.getElementsByClassName("6")
+            let success7 = document.getElementsByClassName("7")
+            let success8 = document.getElementsByClassName("8")
+            for(let it of success0){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success1){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success2){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success3){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success4){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success5){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success6){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success7){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            for(let it of success8){
+                if(it.classList.contains("hover")==true){
+                    success = false
+                }
+            }
+            if(success == true){
+                alert("游戏胜利")
+                mask.style.display = "block"
             }
         })
     }
