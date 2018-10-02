@@ -29,213 +29,214 @@ function game(X,Y,N) {
     var table
     var tr
     var td
-    for(let i=0;i<N;i++){
-        select_td()
-        function select_td(){
-            randomX = Math.floor(Math.random()*X)
-            randomY = Math.floor(Math.random()*Y)
-            table = document.getElementsByTagName("tr")
-            tr = table[randomY].childNodes
-            td = tr[randomX]
-        }
-        test_td()
-        function test_td() {
-            if(td.classList.contains("lei")){
-                select_td()
-                test_td()
-            }else{
-                td.classList.add("lei")
+    var clicked = false
+    function firstClick(it) {
+        for(let i=0;i<N;i++){
+            select_td()
+            function select_td(){
+                randomX = Math.floor(Math.random()*X)
+                randomY = Math.floor(Math.random()*Y)
+                table = document.getElementsByTagName("tr")
+                tr = table[randomY].childNodes
+                td = tr[randomX]
+            }
+            test_td()
+            function test_td() {
+                if(td.classList.contains("lei")||td===it){
+                    select_td()
+                    test_td()
+                }else{
+                    td.classList.add("lei")
+                }
             }
         }
-    }
-    for(let i=0;i<Y;i++){
-        tr = table[i].childNodes
-        for (let j=0;j<X;j++){
-            var num = 0
-            td = tr[j]
-            if (td.classList.contains("lei")==false){
-                if(i-1>=0&&j-1>=0){
-                    let trFind = table[(i-1)].childNodes
-                    let tdFind = trFind[(j-1)]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断左上
-                if(i-1>=0){
-                    let trFind = table[(i-1)].childNodes
-                    let tdFind = trFind[j]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断上
-                if(i-1>=0&&j+1<X){
-                    let trFind = table[(i-1)].childNodes
-                    let tdFind = trFind[(j+1)]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断右上
-                if(j-1>=0){
-                    let trFind = table[i].childNodes
-                    let tdFind = trFind[(j-1)]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断左
-                if(j+1<X){
-                    let trFind = table[i].childNodes
-                    let tdFind = trFind[(j+1)]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断右
-                if(i+1<Y&&j-1>=0){
-                    let trFind = table[(i+1)].childNodes
-                    let tdFind = trFind[(j-1)]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断左下
-                if(i+1<Y){
-                    let trFind = table[(i+1)].childNodes
-                    let tdFind = trFind[j]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断下
-                if(i+1<Y&&j+1<X){
-                    let trFind = table[(i+1)].childNodes
-                    let tdFind = trFind[(j+1)]
-                    if(tdFind.classList.contains("lei")){
-                        num++
-                    }
-                }//判断右下
-                td.classList.add(num)
+        for(let i=0;i<Y;i++){
+            tr = table[i].childNodes
+            for (let j=0;j<X;j++){
+                var num = 0
+                td = tr[j]
+                if (td.classList.contains("lei")==false){
+                    if(i-1>=0&&j-1>=0){
+                        let trFind = table[(i-1)].childNodes
+                        let tdFind = trFind[(j-1)]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断左上
+                    if(i-1>=0){
+                        let trFind = table[(i-1)].childNodes
+                        let tdFind = trFind[j]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断上
+                    if(i-1>=0&&j+1<X){
+                        let trFind = table[(i-1)].childNodes
+                        let tdFind = trFind[(j+1)]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断右上
+                    if(j-1>=0){
+                        let trFind = table[i].childNodes
+                        let tdFind = trFind[(j-1)]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断左
+                    if(j+1<X){
+                        let trFind = table[i].childNodes
+                        let tdFind = trFind[(j+1)]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断右
+                    if(i+1<Y&&j-1>=0){
+                        let trFind = table[(i+1)].childNodes
+                        let tdFind = trFind[(j-1)]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断左下
+                    if(i+1<Y){
+                        let trFind = table[(i+1)].childNodes
+                        let tdFind = trFind[j]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断下
+                    if(i+1<Y&&j+1<X){
+                        let trFind = table[(i+1)].childNodes
+                        let tdFind = trFind[(j+1)]
+                        if(tdFind.classList.contains("lei")){
+                            num++
+                        }
+                    }//判断右下
+                    td.classList.add(num)
+                }
             }
         }
     }
     var tdAggregate = document.getElementsByTagName("td")
     for(let i=0;i<tdAggregate.length;i++){
         tdAggregate[i].addEventListener("click",function click() {
-            if (this.classList.contains("lei")==false){
-                this.classList.remove("hover")
-                this.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                if(this.classList.contains("1")){this.innerText="1"}
-                if(this.classList.contains("2")){this.innerText="2"}
-                if(this.classList.contains("3")){this.innerText="3"}
-                if(this.classList.contains("4")){this.innerText="4"}
-                if(this.classList.contains("5")){this.innerText="5"}
-                if(this.classList.contains("6")){this.innerText="6"}
-                if(this.classList.contains("7")){this.innerText="7"}
-                if(this.classList.contains("7")){this.innerText="8"}
-                if(this.classList.contains("0")){
-                    let a = Math.floor(i/Y)
-                    let b = i-(a*Y)
-                    class0Click(a,b)
-                    function class0Click(a,b) {
-                        if(a-1>=0&&b-1>=0){
-                            let findTd = table[a-1].childNodes[b-1]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }
-                        if(a-1>=0){
-                            let findTd = table[a-1].childNodes[b]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断上
-                        if(a-1>=0&&b+1<X){
-                            let findTd = table[a-1].childNodes[b+1]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断右上
-                        if(b-1>=0){
-                            let findTd = table[a].childNodes[b-1]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断左
-                        if(b+1<X){
-                            let findTd = table[a].childNodes[b+1]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断右
-                        if(a+1<Y&&b-1>=0){
-                            let findTd = table[a+1].childNodes[b-1]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断左下
-                        if(a+1<Y){
-                            let findTd = table[a+1].childNodes[b]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断下
-                        if(a+1<Y&&b+1<X){
-                            let findTd = table[a+1].childNodes[b+1]
-                            if(findTd.classList.contains("hover")==true){
-                                judgeClass(findTd)
-                            }
-                        }//判断右下
-                        function judgeClass(findTd) {
-                            for(let i=0;i<=8;i++){
-                                setClass(i)
-                            }
-                            function setClass(i) {
-                                if(findTd.classList.contains(i)){
-                                    findTd.innerText=i
-                                    findTd.classList.remove("hover")
-                                    findTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
+            if(clicked==false){
+                firstClick(this)
+                clicked=true
+                this.click()
+            }
+            if(clicked==true){
+                if (this.classList.contains("lei")==false){
+                    this.classList.remove("hover")
+                    this.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
+                    if(this.classList.contains("1")){this.innerText="1"}
+                    if(this.classList.contains("2")){this.innerText="2"}
+                    if(this.classList.contains("3")){this.innerText="3"}
+                    if(this.classList.contains("4")){this.innerText="4"}
+                    if(this.classList.contains("5")){this.innerText="5"}
+                    if(this.classList.contains("6")){this.innerText="6"}
+                    if(this.classList.contains("7")){this.innerText="7"}
+                    if(this.classList.contains("7")){this.innerText="8"}
+                    if(this.classList.contains("0")){
+                        let a = Math.floor(i/Y)
+                        let b = i-(a*Y)
+                        class0Click(a,b)
+                        function class0Click(a,b) {
+                            if(a-1>=0&&b-1>=0){
+                                let findTd = table[a-1].childNodes[b-1]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
                                 }
-                                if(findTd.classList.contains("0")){
-                                    findTd.innerText=""
-                                    findTd.click()
+                            }
+                            if(a-1>=0){
+                                let findTd = table[a-1].childNodes[b]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断上
+                            if(a-1>=0&&b+1<X){
+                                let findTd = table[a-1].childNodes[b+1]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断右上
+                            if(b-1>=0){
+                                let findTd = table[a].childNodes[b-1]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断左
+                            if(b+1<X){
+                                let findTd = table[a].childNodes[b+1]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断右
+                            if(a+1<Y&&b-1>=0){
+                                let findTd = table[a+1].childNodes[b-1]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断左下
+                            if(a+1<Y){
+                                let findTd = table[a+1].childNodes[b]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断下
+                            if(a+1<Y&&b+1<X){
+                                let findTd = table[a+1].childNodes[b+1]
+                                if(findTd.classList.contains("hover")==true){
+                                    judgeClass(findTd)
+                                }
+                            }//判断右下
+                            function judgeClass(findTd) {
+                                for(let i=0;i<=8;i++){
+                                    setClass(i)
+                                }
+                                function setClass(i) {
+                                    if(findTd.classList.contains(i)){
+                                        findTd.innerText=i
+                                        findTd.classList.remove("hover")
+                                        findTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
+                                    }
+                                    if(findTd.classList.contains("0")){
+                                        findTd.innerText=""
+                                        findTd.click()
+                                    }
                                 }
                             }
                         }
                     }
+                } else {
+                    var lei = document.getElementsByClassName("lei")
+                    for (let i=0;i<lei.length;i++){
+                        lei[i].style.cssText="background:red;border:1px solid #808080 !important;width:24px;height:24px"
+                    }
+                    mask.style.display = "block"
+                    alert("游戏结束")
                 }
-            } else {
-                var lei = document.getElementsByClassName("lei")
-                for (let i=0;i<lei.length;i++){
-                    lei[i].style.cssText="background:red;border:1px solid #808080 !important;width:24px;height:24px"
-                }
-                mask.style.display = "block"
-                alert("游戏结束")
-            }
-            let success = true
-            for(let i =0;i<=8;i++){
-                Success(i)
-                if(success == false){
-                    break
-                }
-            }
-            function Success(i){
-                let successNum = document.getElementsByClassName(i)
-                for(let it of successNum){
-                    if(it.classList.contains("hover")==true){
-                        success = false
+                let success = true
+                for(let i =0;i<=8;i++){
+                    Success(i)
+                    if(success == false){
                         break
                     }
                 }
-            }
-            if(success == true){
-                alert("游戏胜利")
-                mask.style.display = "block"
+                function Success(i){
+                    let successNum = document.getElementsByClassName(i)
+                    for(let it of successNum){
+                        if(it.classList.contains("hover")==true){
+                            success = false
+                            break
+                        }
+                    }
+                }
+                if(success == true){
+                    alert("游戏胜利")
+                    mask.style.display = "block"
+                }
             }
         })
-        tdAggregate[i].oncontextmenu = function (e) {
-            e.preventDefault()
-        }
-        tdAggregate[i].onmouseup=function(oEvent) {
-            if (!oEvent) oEvent=window.event;
-            if (oEvent.button==2) {
-                console.log('鼠标右击了')
-            }
-        }
     }
 }
