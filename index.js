@@ -228,5 +228,14 @@ function game(X,Y,N) {
                 mask.style.display = "block"
             }
         })
+        tdAggregate[i].oncontextmenu = function (e) {
+            e.preventDefault()
+        }
+        tdAggregate[i].onmouseup=function(oEvent) {
+            if (!oEvent) oEvent=window.event;
+            if (oEvent.button==2) {
+                console.log('鼠标右击了')
+            }
+        }
     }
 }
