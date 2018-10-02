@@ -11,7 +11,13 @@
 
 #mask{
     z-index: 100;
+    width: 100%;
     position: absolute;
+}
+#restart{
+    height: 30px;
+    width: 50px;
+    margin-top: 20px;
 }
 
 

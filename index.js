@@ -1,5 +1,8 @@
 //创建表格
 var mask = document.getElementById("mask")
+document.getElementById("restart").addEventListener("click",function () {
+    location.reload()
+})
 createTable(8,8)
 function createTable(X,Y) {
     var table = document.getElementById("table")
@@ -15,19 +18,17 @@ function createTable(X,Y) {
         }
     }
     table.appendChild(tableNode)
-    mask.style.width = tableNode.offsetWidth + "px"
     mask.style.height = tableNode.offsetHeight + "px"
-    mask.style.left = tableNode.getBoundingClientRect().left + "px"
     mask.style.top = tableNode.getBoundingClientRect().top + "px"
     mask.style.display = "none"
 }
-createLei(8,8,10)
-var randomX
-var randomY
-var table
-var tr
-var td
-function createLei(X,Y,N) {
+game(8,8,10)
+function game(X,Y,N) {
+    var randomX
+    var randomY
+    var table
+    var tr
+    var td
     for(let i=0;i<N;i++){
         select_td()
         function select_td(){
@@ -130,101 +131,70 @@ function createLei(X,Y,N) {
                 if(this.classList.contains("0")){
                     let a = Math.floor(i/Y)
                     let b = i-(a*Y)
-                    class0(a,b)
-                    function class0(a,b) {
+                    class0Click(a,b)
+                    function class0Click(a,b) {
                         if(a-1>=0&&b-1>=0){
-                            let class0FindTd = table[a-1].childNodes[b-1]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a-1].childNodes[b-1]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }
                         if(a-1>=0){
-                            let class0FindTd = table[a-1].childNodes[b]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a-1].childNodes[b]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断上
                         if(a-1>=0&&b+1<X){
-                            let class0FindTd = table[a-1].childNodes[b+1]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a-1].childNodes[b+1]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断右上
                         if(b-1>=0){
-                            let class0FindTd = table[a].childNodes[b-1]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a].childNodes[b-1]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断左
                         if(b+1<X){
-                            let class0FindTd = table[a].childNodes[b+1]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a].childNodes[b+1]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断右
                         if(a+1<Y&&b-1>=0){
-                            let class0FindTd = table[a+1].childNodes[b-1]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a+1].childNodes[b-1]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断左下
                         if(a+1<Y){
-                            let class0FindTd = table[a+1].childNodes[b]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a+1].childNodes[b]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断下
                         if(a+1<Y&&b+1<X){
-                            let class0FindTd = table[a+1].childNodes[b+1]
-                            if(class0FindTd.classList.contains("hover")==true){
-                                class0Find(class0FindTd)
+                            let findTd = table[a+1].childNodes[b+1]
+                            if(findTd.classList.contains("hover")==true){
+                                judgeClass(findTd)
                             }
                         }//判断右下
-                        function class0Find(class0FindTd) {
-                            if(class0FindTd.classList.contains("1")){
-                                class0FindTd.innerText="1"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
+                        function judgeClass(findTd) {
+                            for(let i=0;i<=8;i++){
+                                setClass(i)
                             }
-                            if(class0FindTd.classList.contains("2")){
-                                class0FindTd.innerText="2"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("3")){
-                                class0FindTd.innerText="3"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("4")){
-                                class0FindTd.innerText="4"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("5")){
-                                class0FindTd.innerText="5"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("6")){
-                                class0FindTd.innerText="6"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("7")){
-                                class0FindTd.innerText="7"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("8")){
-                                class0FindTd.innerText="8"
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                            }
-                            if(class0FindTd.classList.contains("0")){
-                                class0FindTd.classList.remove("hover")
-                                class0FindTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                                class0FindTd.click()
+                            function setClass(i) {
+                                if(findTd.classList.contains(i)){
+                                    findTd.innerText=i
+                                    findTd.classList.remove("hover")
+                                    findTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
+                                }
+                                if(findTd.classList.contains("0")){
+                                    findTd.innerText=""
+                                    findTd.click()
+                                }
                             }
                         }
                     }
@@ -232,64 +202,25 @@ function createLei(X,Y,N) {
             } else {
                 var lei = document.getElementsByClassName("lei")
                 for (let i=0;i<lei.length;i++){
-                    lei[i].style.cssText+="background:red"
+                    lei[i].style.cssText="background:red;border:1px solid #808080 !important;width:24px;height:24px"
                 }
                 mask.style.display = "block"
                 alert("游戏结束")
             }
             let success = true
-            let success0 = document.getElementsByClassName("0")
-            let success1 = document.getElementsByClassName("1")
-            let success2 = document.getElementsByClassName("2")
-            let success3 = document.getElementsByClassName("3")
-            let success4 = document.getElementsByClassName("4")
-            let success5 = document.getElementsByClassName("5")
-            let success6 = document.getElementsByClassName("6")
-            let success7 = document.getElementsByClassName("7")
-            let success8 = document.getElementsByClassName("8")
-            for(let it of success0){
-                if(it.classList.contains("hover")==true){
-                    success = false
+            for(let i =0;i<=8;i++){
+                Success(i)
+                if(success == false){
+                    break
                 }
             }
-            for(let it of success1){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success2){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success3){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success4){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success5){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success6){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success7){
-                if(it.classList.contains("hover")==true){
-                    success = false
-                }
-            }
-            for(let it of success8){
-                if(it.classList.contains("hover")==true){
-                    success = false
+            function Success(i){
+                let successNum = document.getElementsByClassName(i)
+                for(let it of successNum){
+                    if(it.classList.contains("hover")==true){
+                        success = false
+                        break
+                    }
                 }
             }
             if(success == true){
@@ -299,7 +230,3 @@ function createLei(X,Y,N) {
         })
     }
 }
-
-
-
-
