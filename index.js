@@ -112,14 +112,14 @@ function game(X,Y,N) {
                             num++
                         }
                     }//判断右下
-                    td.classList.add(num)
+                    td.classList.add("num"+num)
                 }
             }
         }
     }
     var tdAggregate = document.getElementsByTagName("td")
     for(let i=0;i<tdAggregate.length;i++){
-        tdAggregate[i].addEventListener("click",function click() {
+        function click() {
             if(clicked==false){
                 firstClick(this)
                 clicked=true
@@ -127,17 +127,18 @@ function game(X,Y,N) {
             }
             if(clicked==true){
                 if (this.classList.contains("lei")==false){
+                    this.classList.add("clicked")
                     this.classList.remove("hover")
                     this.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                    if(this.classList.contains("1")){this.innerText="1"}
-                    if(this.classList.contains("2")){this.innerText="2"}
-                    if(this.classList.contains("3")){this.innerText="3"}
-                    if(this.classList.contains("4")){this.innerText="4"}
-                    if(this.classList.contains("5")){this.innerText="5"}
-                    if(this.classList.contains("6")){this.innerText="6"}
-                    if(this.classList.contains("7")){this.innerText="7"}
-                    if(this.classList.contains("7")){this.innerText="8"}
-                    if(this.classList.contains("0")){
+                    if(this.classList.contains("num1")){this.innerText="1"}
+                    if(this.classList.contains("num2")){this.innerText="2"}
+                    if(this.classList.contains("num3")){this.innerText="3"}
+                    if(this.classList.contains("num4")){this.innerText="4"}
+                    if(this.classList.contains("num5")){this.innerText="5"}
+                    if(this.classList.contains("num6")){this.innerText="6"}
+                    if(this.classList.contains("num7")){this.innerText="7"}
+                    if(this.classList.contains("num8")){this.innerText="8"}
+                    if(this.classList.contains("num0")){
                         let a = Math.floor(i/Y)
                         let b = i-(a*Y)
                         class0Click(a,b)
@@ -195,12 +196,13 @@ function game(X,Y,N) {
                                     setClass(i)
                                 }
                                 function setClass(i) {
-                                    if(findTd.classList.contains(i)){
+                                    if(findTd.classList.contains("num"+i)){
+                                        console.log(findTd)
                                         findTd.innerText=i
                                         findTd.classList.remove("hover")
                                         findTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
                                     }
-                                    if(findTd.classList.contains("0")){
+                                    if(findTd.classList.contains("num0")){
                                         findTd.innerText=""
                                         findTd.click()
                                     }
@@ -209,9 +211,14 @@ function game(X,Y,N) {
                         }
                     }
                 } else {
+                    this.style.cssText+="background:red !important"
                     var lei = document.getElementsByClassName("lei")
                     for (let i=0;i<lei.length;i++){
-                        lei[i].style.cssText="background:red;border:1px solid #808080 !important;width:24px;height:24px"
+                        var imgLei = document.createElement("img")
+                        imgLei.src = "雷.png"
+                        lei[i].innerHTML = ""
+                        lei[i].appendChild(imgLei)
+                        lei[i].style.cssText+="background:rgb(187,187,187);border:1px solid #808080 !important;width:24px;height:24px"
                     }
                     mask.style.display = "block"
                     alert("游戏结束")
@@ -224,7 +231,7 @@ function game(X,Y,N) {
                     }
                 }
                 function Success(i){
-                    let successNum = document.getElementsByClassName(i)
+                    let successNum = document.getElementsByClassName("num"+i)
                     for(let it of successNum){
                         if(it.classList.contains("hover")==true){
                             success = false
@@ -237,6 +244,30 @@ function game(X,Y,N) {
                     mask.style.display = "block"
                 }
             }
-        })
+        }
+        tdAggregate[i].addEventListener("click",click)
+        tdAggregate[i].oncontextmenu = function (e) {
+            e.preventDefault()
+        }
+        var qiNum = 0
+        tdAggregate[i].onmouseup = function (oEvent) {
+            if(!oEvent) oEvent=window.event
+            if(oEvent.button == 2){
+                var imgQi = document.createElement("img")
+                imgQi.src = "旗子.png"
+                if(this.classList.contains("clicked")==false&&this.classList.contains("qi")==false&&qiNum<=N){
+                    qiNum++
+                    this.appendChild(imgQi)
+                    this.classList.add("qi")
+                    this.classList.remove("hover")
+                    this.removeEventListener("click",click)
+                }else if(this.classList.contains("qi")==true){
+                    this.innerHTML = ""
+                    this.classList.remove("qi")
+                    this.classList.add("hover")
+                    this.addEventListener("click",click)
+                }
+            }
+        }
     }
 }

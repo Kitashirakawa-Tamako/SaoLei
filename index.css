@@ -1,6 +1,13 @@
 *{
     padding: 0;
     margin: 0;
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .hover:hover{
     background: #bbb;
@@ -19,5 +26,38 @@
     width: 50px;
     margin-top: 20px;
 }
-
+img{
+    height: 95%;
+    width: 95%;
+    display: block;
+    margin: auto;
+}
+td{
+    text-align: center;
+    font-weight: 600;
+}
+.num1{
+    color: rgb(0,0,255);
+}
+.num2{
+    color: rgb(0,128,0);
+}
+.num3{
+    color: rgb(255,0,0);
+}
+.num4{
+    color: rgb(0,0,128);
+}
+.num5{
+    color: rgb(128,0,0);
+}
+.num6{
+    color: rgb(0,128,128);
+}
+.num7{
+    color: rgb(0,0,0);
+}
+.num8{
+    color: rgb(128,128,128);
+}
 
