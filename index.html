@@ -6,13 +6,25 @@
     <link type="text/css" href="index.css" rel="stylesheet">
 </head>
 <body>
-    <div id="table" align="center" style="background-color: #ccc;height: 400px">
+    <div id="table" align="center" style="background-color: #ccc;height: 100%">
         <div>
-            <button id="restart">开始</button>
+            <button id="restart">开始</button><br>
+            <button id="rank1">初级</button>
+            <button id="rank2">中极</button>
+            <button id="rank3">高级</button>
+            <button id="rank4">自定义</button>
         </div>
     </div>
     <div id="mask" align="center">
 
+    </div>
+    <div id="pop">
+        <p>自定义雷区</p>
+        <span class="span">宽度：</span><input class="input" type="text"><br>
+        <span class="span">高度：</span><input class="input" type="text"><br>
+        <span class="span">雷数：</span><input class="input" type="text"><br>
+        <button id="yes" style="margin: 10px 10px 0 0">确定</button>
+        <button id="no" style="margin: 10px 0 0 10px">取消</button>
     </div>
 </body>
 <script src="index.js"></script>

@@ -9,6 +9,9 @@
     -ms-user-select: none;
     user-select: none;
 }
+html,body{
+    height: 100%;
+}
 .hover:hover{
     background: #bbb;
     border:1px solid #808080 !important;
@@ -25,6 +28,10 @@
     height: 30px;
     width: 50px;
     margin-top: 20px;
+    margin-bottom: 10px;
+}
+button{
+    width: 45px;
 }
 img{
     height: 95%;
@@ -60,4 +67,13 @@ td{
 .num8{
     color: rgb(128,128,128);
 }
-
+#pop{
+    border: 1px solid black;
+    width: 200px;
+    height: 150px;
+    text-align: center;
+}
+.input{
+    width: 100px;
+    margin-top: 10px;
+}

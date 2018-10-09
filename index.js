@@ -3,15 +3,37 @@ var mask = document.getElementById("mask")
 document.getElementById("restart").addEventListener("click",function () {
     location.reload()
 })
-createTable(8,8)
+document.getElementById("rank1").addEventListener("click",function () {
+    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
+    createTable(9,9)
+    game(9,9,10)
+})
+
+document.getElementById("rank2").addEventListener("click",function () {
+    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
+    createTable(16,16)
+    game(16,16,60)
+})
+
+document.getElementById("rank3").addEventListener("click",function () {
+    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
+    createTable(20,20)
+    game(20,20,100)
+})
+
+document.getElementById("rank4").addEventListener("click",function () {
+    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
+})
+
+window.onload = createTable(9,9)
 function createTable(X,Y) {
     var table = document.getElementById("table")
     var tableNode = document.createElement("table")
     tableNode.style="background:#ccc;border-spacing:0px;display:inline-table;margin-top:20px"
     var tdNode_style="border: 3px solid #808080;border-left-color:#eee;border-top-color:#eee;width:20px;height:20px"
-    for(let x=0;x<X;x++){
+    for(let y=0;y<Y;y++){
         var trNode = tableNode.insertRow()
-        for(let y=0;y<Y;y++){
+        for(let x=0;x<X;x++){
             var tdNode = trNode.insertCell()
             tdNode.classList.add("hover")
             tdNode.style=tdNode_style
@@ -22,7 +44,7 @@ function createTable(X,Y) {
     mask.style.top = tableNode.getBoundingClientRect().top + "px"
     mask.style.display = "none"
 }
-game(8,8,10)
+window.onload = game(9,9,10)
 function game(X,Y,N) {
     var randomX
     var randomY
@@ -139,8 +161,8 @@ function game(X,Y,N) {
                     if(this.classList.contains("num7")){this.innerText="7"}
                     if(this.classList.contains("num8")){this.innerText="8"}
                     if(this.classList.contains("num0")){
-                        let a = Math.floor(i/Y)
-                        let b = i-(a*Y)
+                        let a = Math.floor(i/X)
+                        let b = i-(a*X)
                         class0Click(a,b)
                         function class0Click(a,b) {
                             if(a-1>=0&&b-1>=0){
@@ -197,7 +219,6 @@ function game(X,Y,N) {
                                 }
                                 function setClass(i) {
                                     if(findTd.classList.contains("num"+i)){
-                                        console.log(findTd)
                                         findTd.innerText=i
                                         findTd.classList.remove("hover")
                                         findTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
