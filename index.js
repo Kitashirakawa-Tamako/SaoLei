@@ -1,30 +1,53 @@
-//创建表格
 var mask = document.getElementById("mask")
+var rank = "rank1"
+var customX
+var customY
+var customN
 document.getElementById("restart").addEventListener("click",function () {
-    location.reload()
+    if(rank == "rank1"){
+        restart(9,9,10)
+        rank = "rank1"
+    }else if(rank == "rank2"){
+        restart(16,16,20)
+        rank = "rank2"
+    }else if(rank == "rank3"){
+        restart(20,20,100)
+        rank = "rank3"
+    }else if(rank == "rank4"){
+        restart(customX,customY,customN)
+        rank = "rank4"
+    }
 })
 document.getElementById("rank1").addEventListener("click",function () {
-    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
-    createTable(9,9)
-    game(9,9,10)
+    restart(9,9,10)
+    rank = "rank1"
 })
 
 document.getElementById("rank2").addEventListener("click",function () {
-    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
-    createTable(16,16)
-    game(16,16,60)
+    restart(16,16,20)
+    rank = "rank2"
 })
 
 document.getElementById("rank3").addEventListener("click",function () {
-    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
-    createTable(20,20)
-    game(20,20,100)
+    restart(20,20,100)
+    rank = "rank3"
 })
 
-document.getElementById("rank4").addEventListener("click",function () {
-    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
+document.getElementById("yes").addEventListener("click",function () {
+    customX = document.getElementById("input1").value
+    customY = document.getElementById("input2").value
+    customN = document.getElementById("input3").value
+    restart(customX,customY,customN)
+    rank = "rank4"
+
 })
 
+function restart(X,Y,N){
+    document.getElementById("table").removeChild(document.getElementById("table").childNodes[3])
+    createTable(X,Y)
+    game(X,Y,N)
+}
+//创建表格
 window.onload = createTable(9,9)
 function createTable(X,Y) {
     var table = document.getElementById("table")
@@ -225,7 +248,7 @@ function game(X,Y,N) {
                                     }
                                     if(findTd.classList.contains("num0")){
                                         findTd.innerText=""
-                                        findTd.click()
+                                        setTimeout(findTd.click())
                                     }
                                 }
                             }
