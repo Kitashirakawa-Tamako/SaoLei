@@ -1,8 +1,29 @@
+    // "use strict"
+
+
 var mask = document.getElementById("mask")
 var rank = "rank1"
 var customX
 var customY
 var customN
+var input1 = document.getElementById("input1")
+var input2 = document.getElementById("input2")
+var input3 = document.getElementById("input3")
+input1.onblur = function () {
+    if (input1.value%1!=0||input1.value<10||input1.value>20){
+        input1.value = ""
+    }
+}
+input2.onblur = function(){
+    if (input2.value%1!=0||input2.value<10||input2.value>20){
+        input2.value = ""
+    }
+}
+input3.onblur = function(){
+    if (input3.value%1!=0||input3.value<10||input3.value>225){
+        input3.value = ""
+    }
+}
 document.getElementById("restart").addEventListener("click",function () {
     if(rank == "rank1"){
         restart(9,9,10)
@@ -33,13 +54,25 @@ document.getElementById("rank3").addEventListener("click",function () {
     rank = "rank3"
 })
 
+document.getElementById("rank4").addEventListener("click",function () {
+    document.getElementById("pop").style.display = "block"
+})
+
 document.getElementById("yes").addEventListener("click",function () {
-    customX = document.getElementById("input1").value
-    customY = document.getElementById("input2").value
-    customN = document.getElementById("input3").value
+    customX = input1.value
+    customY = input2.value
+    customN = input3.value
+    if(customX<10||customX>20||customY<10||customY>20){
+        alert("请正确的输入宽高")
+        return
+    }
+    if(customN>Math.floor((customX*customY)*0.5)){
+        alert("雷数量太多了")
+        return
+    }
     restart(customX,customY,customN)
     rank = "rank4"
-
+    document.getElementById("pop").style.display = "none"
 })
 
 function restart(X,Y,N){
@@ -164,98 +197,73 @@ function game(X,Y,N) {
     }
     var tdAggregate = document.getElementsByTagName("td")
     for(let i=0;i<tdAggregate.length;i++){
-        function click() {
+        function click(target) {
+            if(target.target != undefined){
+                target = target.currentTarget;
+            }
             if(clicked==false){
-                firstClick(this)
+                firstClick(target)
                 clicked=true
-                this.click()
+                target.click()
             }
             if(clicked==true){
-                if (this.classList.contains("lei")==false){
-                    this.classList.add("clicked")
-                    this.classList.remove("hover")
-                    this.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
-                    if(this.classList.contains("num1")){this.innerText="1"}
-                    if(this.classList.contains("num2")){this.innerText="2"}
-                    if(this.classList.contains("num3")){this.innerText="3"}
-                    if(this.classList.contains("num4")){this.innerText="4"}
-                    if(this.classList.contains("num5")){this.innerText="5"}
-                    if(this.classList.contains("num6")){this.innerText="6"}
-                    if(this.classList.contains("num7")){this.innerText="7"}
-                    if(this.classList.contains("num8")){this.innerText="8"}
-                    if(this.classList.contains("num0")){
-                        let a = Math.floor(i/X)
-                        let b = i-(a*X)
+                if (target.classList.contains("lei")==false){
+                    target.classList.remove("hover")
+                    target.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
+                    if(target.classList.contains("num1")){target.innerText="1"}
+                    if(target.classList.contains("num2")){target.innerText="2"}
+                    if(target.classList.contains("num3")){target.innerText="3"}
+                    if(target.classList.contains("num4")){target.innerText="4"}
+                    if(target.classList.contains("num5")){target.innerText="5"}
+                    if(target.classList.contains("num6")){target.innerText="6"}
+                    if(target.classList.contains("num7")){target.innerText="7"}
+                    if(target.classList.contains("num8")){target.innerText="8"}
+                    if(target.classList.contains("num0")){
+                        let a ; let b;
+                        for(let n=0;n<X*Y;n++){
+                            if(target===tdAggregate[n]){
+                                a = Math.floor(n/X)
+                                b = n-(a*X)
+                            }
+                        }
                         class0Click(a,b)
                         function class0Click(a,b) {
-                            if(a-1>=0&&b-1>=0){
-                                let findTd = table[a-1].childNodes[b-1]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
+                            var i = 0;
+                            var mmap = [-1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1]
+                            for(; i < 8; i++){
+                                let x = a + mmap[i * 2];
+                                let y = b + mmap[i * 2 + 1]
+                                if(x>=0&& y>=0 && x < X && y < Y){
+                                    let findTd = table[x].childNodes[y]
+                                    if(findTd.classList.contains("hover")){
+                                        console.log(findTd)
+                                        judgeClass(findTd)
+                                    }
                                 }
                             }
-                            if(a-1>=0){
-                                let findTd = table[a-1].childNodes[b]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断上
-                            if(a-1>=0&&b+1<X){
-                                let findTd = table[a-1].childNodes[b+1]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断右上
-                            if(b-1>=0){
-                                let findTd = table[a].childNodes[b-1]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断左
-                            if(b+1<X){
-                                let findTd = table[a].childNodes[b+1]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断右
-                            if(a+1<Y&&b-1>=0){
-                                let findTd = table[a+1].childNodes[b-1]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断左下
-                            if(a+1<Y){
-                                let findTd = table[a+1].childNodes[b]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断下
-                            if(a+1<Y&&b+1<X){
-                                let findTd = table[a+1].childNodes[b+1]
-                                if(findTd.classList.contains("hover")==true){
-                                    judgeClass(findTd)
-                                }
-                            }//判断右下
+
                             function judgeClass(findTd) {
                                 for(let i=0;i<=8;i++){
                                     setClass(i)
                                 }
                                 function setClass(i) {
+                                    findTd.classList.remove("hover")
                                     if(findTd.classList.contains("num"+i)){
                                         findTd.innerText=i
-                                        findTd.classList.remove("hover")
+
                                         findTd.style.cssText="background: #bbb;border:1px solid #808080 !important;width:24px;height:24px"
                                     }
                                     if(findTd.classList.contains("num0")){
                                         findTd.innerText=""
-                                        setTimeout(findTd.click())
+                                        click(findTd)
                                     }
                                 }
                             }
                         }
                     }
-                } else {
-                    this.style.cssText+="background:red !important"
+                }
+                else {
+                    target.style.cssText+="background:red !important"
                     var lei = document.getElementsByClassName("lei")
                     for (let i=0;i<lei.length;i++){
                         var imgLei = document.createElement("img")
@@ -299,7 +307,7 @@ function game(X,Y,N) {
             if(oEvent.button == 2){
                 var imgQi = document.createElement("img")
                 imgQi.src = "旗子.png"
-                if(this.classList.contains("clicked")==false&&this.classList.contains("qi")==false&&qiNum<=N){
+                if(this.classList.contains("hover")&&this.classList.contains("qi")==false&&qiNum<=N){
                     qiNum++
                     this.appendChild(imgQi)
                     this.classList.add("qi")
